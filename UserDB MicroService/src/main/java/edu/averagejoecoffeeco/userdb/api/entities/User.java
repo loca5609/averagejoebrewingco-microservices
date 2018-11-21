@@ -2,70 +2,75 @@ package edu.averagejoecoffeeco.userdb.api.entities;
 
 public class User {
 
-  private String id;   
+    private String id;
 
-  private String username;
-  private String password;
-  private String firstName;
-  private String lastName;
-  private Double credit;
+    private String username;
+    private String password;
+    private String firstName;
+    private String lastName;
+    private Double credit;
 
-  public String getId() {
-    return this.id;
-  }
+    @Override
+    public String toString() {
+        return "{" + " id='" + getId() + "'" + ", username='" + getUsername() + "'" + ", password='" + getPassword()
+                + "'" + ", firstName='" + getFirstName() + "'" + ", lastName='" + getLastName() + "'" + ", credit='"
+                + getCredit() + "'" + "}";
+    }
 
-  public void setId(String id) {
-    this.id = id;
-  }
+    public String getId() {
+        return this.id;
+    }
 
-  public Double getCredit() {
-    return this.credit;
-  }
+    public void setId(String id) {
+        this.id = id;
+    }
 
-  public void setCredit(Double credit) {
-    this.credit = credit;
-  }
+    public Double getCredit() {
+        return this.credit;
+    }
 
-  public String getUsername() {
-    return this.username;
-  }
+    public void setCredit(Double credit) {
+        this.credit = credit;
+    }
 
-  public void setUsername(String username) {
-    this.username = username;
-  }
+    public String getUsername() {
+        return this.username;
+    }
 
-  public String getPassword() {
-    return this.password;
-  }
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-  public void setPassword(String password) {
-    this.password = password;
-  }
+    public String getPassword() {
+        return this.password;
+    }
 
-  public String getFirstName() {
-    return this.firstName;
-  }
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-  public void setFirstName(String firstName) {
-    this.firstName = firstName;
-  }
+    public String getFirstName() {
+        return this.firstName;
+    }
 
-  public String getLastName() {
-    return this.lastName;
-  }
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-  public void setLastName(String lastName) {
-    this.lastName = lastName;
-  }
+    public String getLastName() {
+        return this.lastName;
+    }
 
-  public User(String username, String password, String firstName, String lastName, Double credit) {
-    this.username = username;
-    this.password = password;
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.credit = credit;
-  }
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-
+    public User(String username, String password, String firstName, String lastName, Double credit) {
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.credit = credit;
+    }
 
 }

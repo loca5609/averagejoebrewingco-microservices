@@ -11,20 +11,21 @@ import edu.averagejoecoffeeco.coffeedb.api.entities.Coffee;
 @Repository
 public interface ICoffeeRepository extends MongoRepository<Coffee, String> {
 
-  @Query (value = "{'aroma':?0}")
-  List<Coffee> findByaroma(String aroma);
+    @Query(value = "{'aroma':?0}")
+    List<Coffee> findByaroma(String aroma);
 
-  @Query (value = "{'flavor':?0}")
-  List<Coffee> findByflavor(String flavor);
+    @Query(value = "{'flavor':?0}")
+    List<Coffee> findByflavor(String flavor);
 
-  @Query (value = "{'body':?0}")
-  List<Coffee> findBybody(String body);
+    @Query(value = "{'body':?0}")
+    List<Coffee> findBybody(String body);
 
-  @Query (value = "{'country':?0}")
-  List<Coffee> findBycountry(String country);
+    @Query(value = "{'country':?0}")
+    List<Coffee> findBycountry(String country);
 
-  @Query (value = "{'roast':?0}")
-  List<Coffee> findByRoastType(String type);
+    @Query(value = "{'roast':?0}")
+    List<Coffee> findByRoastType(String type);
 
+    @Query(value = "{'name':?0}")
+    List<Coffee> findByName(String name);
 }
-
