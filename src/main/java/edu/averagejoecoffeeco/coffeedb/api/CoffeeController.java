@@ -92,23 +92,23 @@ public class CoffeeController {
         return result;
     }
 
-  @PutMapping("/{id}/{quantity}")
-  public ResponseEntity<Coffee> updateCoffee(@PathVariable("id") String id, @PathVariable("quantity") Integer quantity, @RequestBody Coffee coffee) {
-        String sanId = Encode.forJava(id);               
+    @PutMapping("/{id}/{quantity}")
+    public ResponseEntity<Coffee> updateCoffee(@PathVariable("id") String id,
+            @PathVariable("quantity") Integer quantity, @RequestBody Coffee coffee) {
+        String sanId = Encode.forJava(id);
         Optional<Coffee> coffeeData = coffeeRepo.findById(sanId);
-        
-        if(coffeeData.isPresent()){
-            logger.info("Adjusting Coffee:"+ id + " by " + quantity + "units.");
+
+        if (coffeeData.isPresent()) {
+            logger.info("Adjusting Coffee:" + id + " by " + quantity + "units.");
             Coffee savedCoffee = coffeeData.get();
             // FIXME: Need to check for valid inventory amounts.
             Integer currentInv = savedCoffee.getInventory();
-            if() 
             savedCoffee.setInventory((savedCoffee.getInventory() - quantity));
             Coffee updatedCoffee = coffeeRepo.save(savedCoffee);
             return new ResponseEntity<Coffee>(updatedCoffee, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-  }
+    }
 
 }
