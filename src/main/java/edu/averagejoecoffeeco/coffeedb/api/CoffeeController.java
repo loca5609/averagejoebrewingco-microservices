@@ -100,7 +100,7 @@ public class CoffeeController {
             logger.info("Adjusting Coffee:" + id + " by " + quantity + "units.");
             Coffee savedCoffee = coffeeData.get();
             // Return 400 bad request if subtracting inventory
-            if (savedCoffee.getInventory() < 0) {
+            if ((savedCoffee.getInventory() - quantity) < 0) {
                 logger.error("Coffee Inventory for " + savedCoffee.getId() + " would be set to negative!");
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
