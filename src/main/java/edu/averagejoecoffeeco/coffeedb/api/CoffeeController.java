@@ -93,7 +93,7 @@ public class CoffeeController {
 
     @PutMapping("/{id}/{quantity}")
     public ResponseEntity<Coffee> updateCoffee(@PathVariable("id") String id,
-            @PathVariable("quantity") Integer quantity, @RequestBody Coffee coffee) {
+            @PathVariable("quantity") Integer quantity) {
         String sanId = Encode.forJava(id);
         Optional<Coffee> coffeeData = coffeeRepo.findById(sanId);
         if (coffeeData.isPresent()) {
