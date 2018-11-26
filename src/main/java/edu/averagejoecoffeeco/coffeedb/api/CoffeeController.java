@@ -96,12 +96,14 @@ public class CoffeeController {
             @PathVariable("quantity") Integer quantity, @RequestBody Coffee coffee) {
         String sanId = Encode.forJava(id);
         Optional<Coffee> coffeeData = coffeeRepo.findById(sanId);
-
         if (coffeeData.isPresent()) {
             logger.info("Adjusting Coffee:" + id + " by " + quantity + "units.");
             Coffee savedCoffee = coffeeData.get();
-            // FIXME: Need to check for valid inventory amounts.
-            Integer currentInv = savedCoffee.getInventory();
+            // Return 400 bad request if subtracting inventory
+            if (savedCoffee.getInventory() < 0) {
+                logger.error("Coffee Inventory for " + savedCoffee.getId() + " would be set to negative!");
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
             savedCoffee.setInventory((savedCoffee.getInventory() - quantity));
             Coffee updatedCoffee = coffeeRepo.save(savedCoffee);
             return new ResponseEntity<Coffee>(updatedCoffee, HttpStatus.OK);
