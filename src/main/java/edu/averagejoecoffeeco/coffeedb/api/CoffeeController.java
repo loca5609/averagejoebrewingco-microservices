@@ -12,6 +12,7 @@ import org.owasp.encoder.Encode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,20 +36,22 @@ public class CoffeeController {
     ICoffeeRepository coffeeRepo;
 
     // sanitized input thats 5% extra credit (Project Wide)
+    @CrossOrigin(origins = "https://averagejoe-coffee-microservice.herokuapp.com/")
     @GetMapping("/allCoffee")
     List<Coffee> getAll() {
         List<Coffee> result = coffeeRepo.findAll();
         return result;
     }
 
+    @CrossOrigin(origins = "https://averagejoe-coffee-microservice.herokuapp.com/")
     @GetMapping("/id/{id}")
     Optional<Coffee> getById(@PathVariable String id) {
-
         String sanitizedId = Encode.forJava(id);
         Optional<Coffee> result = coffeeRepo.findById(sanitizedId);
         return result;
     }
 
+    @CrossOrigin(origins = "https://averagejoe-coffee-microservice.herokuapp.com/")
     @GetMapping("/name/{name}")
     List<Coffee> getByName(@PathVariable String name) {
         String sanitizedName = Encode.forJava(name);
@@ -56,6 +59,7 @@ public class CoffeeController {
         return result;
     }
 
+    @CrossOrigin(origins = "https://averagejoe-coffee-microservice.herokuapp.com/")
     @GetMapping("/aroma/{aroma}")
     List<Coffee> getByAroma(@PathVariable String aroma) {
         String sanitizedAroma = Encode.forJava(aroma);
@@ -63,6 +67,7 @@ public class CoffeeController {
         return result;
     }
 
+    @CrossOrigin(origins = "https://averagejoe-coffee-microservice.herokuapp.com/")
     @GetMapping("/flavor/{flavor}")
     List<Coffee> getByFlavor(@PathVariable String flavor) {
         String sanitizedFlavor = Encode.forJava(flavor);
@@ -70,6 +75,7 @@ public class CoffeeController {
         return result;
     }
 
+    @CrossOrigin(origins = "https://averagejoe-coffee-microservice.herokuapp.com/")
     @GetMapping("/body/{body}")
     List<Coffee> getByBody(@PathVariable String body) {
         String sanitizedBody = Encode.forJava(body);
@@ -77,6 +83,7 @@ public class CoffeeController {
         return result;
     }
 
+    @CrossOrigin(origins = "https://averagejoe-coffee-microservice.herokuapp.com/")
     @GetMapping("/country/{country}")
     List<Coffee> getByCountry(@PathVariable String country) {
         String sanitizedCountry = Encode.forJava(country);
@@ -84,6 +91,7 @@ public class CoffeeController {
         return result;
     }
 
+    @CrossOrigin(origins = "https://averagejoe-coffee-microservice.herokuapp.com/")
     @GetMapping("/roast/{type}")
     List<Coffee> getByRoastType(@PathVariable String type) {
         String sanitizedType = Encode.forJava(type);
@@ -91,6 +99,7 @@ public class CoffeeController {
         return result;
     }
 
+    @CrossOrigin(origins = "https://averagejoe-coffee-microservice.herokuapp.com/")
     @PutMapping("/{id}/{quantity}")
     public ResponseEntity<Coffee> updateCoffee(@PathVariable("id") String id,
             @PathVariable("quantity") Integer quantity) {
@@ -99,7 +108,7 @@ public class CoffeeController {
         if (coffeeData.isPresent()) {
             logger.info("Adjusting Coffee:" + id + " by " + quantity + "units.");
             Coffee savedCoffee = coffeeData.get();
-            // Return 400 bad request if subtracting inventory
+            // Return 400 bad request if subtracting inventory would make it negative
             if ((savedCoffee.getInventory() - quantity) < 0) {
                 logger.error("Coffee Inventory for " + savedCoffee.getId() + " would be set to negative!");
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
