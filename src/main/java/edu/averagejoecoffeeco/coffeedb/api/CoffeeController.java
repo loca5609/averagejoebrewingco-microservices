@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 public class CoffeeController {
     private static final Logger logger = LoggerFactory.getLogger(CoffeedbApplication.class);
@@ -36,14 +37,13 @@ public class CoffeeController {
     ICoffeeRepository coffeeRepo;
 
     // sanitized input thats 5% extra credit (Project Wide)
-    @CrossOrigin(origins = "https://averagejoe-coffee-microservice.herokuapp.com/")
+
     @GetMapping("/allCoffee")
     List<Coffee> getAll() {
         List<Coffee> result = coffeeRepo.findAll();
         return result;
     }
 
-    @CrossOrigin(origins = "https://averagejoe-coffee-microservice.herokuapp.com/")
     @GetMapping("/id/{id}")
     Optional<Coffee> getById(@PathVariable String id) {
         String sanitizedId = Encode.forJava(id);
@@ -51,7 +51,6 @@ public class CoffeeController {
         return result;
     }
 
-    @CrossOrigin(origins = "https://averagejoe-coffee-microservice.herokuapp.com/")
     @GetMapping("/name/{name}")
     List<Coffee> getByName(@PathVariable String name) {
         String sanitizedName = Encode.forJava(name);
@@ -59,7 +58,6 @@ public class CoffeeController {
         return result;
     }
 
-    @CrossOrigin(origins = "https://averagejoe-coffee-microservice.herokuapp.com/")
     @GetMapping("/aroma/{aroma}")
     List<Coffee> getByAroma(@PathVariable String aroma) {
         String sanitizedAroma = Encode.forJava(aroma);
@@ -67,7 +65,6 @@ public class CoffeeController {
         return result;
     }
 
-    @CrossOrigin(origins = "https://averagejoe-coffee-microservice.herokuapp.com/")
     @GetMapping("/flavor/{flavor}")
     List<Coffee> getByFlavor(@PathVariable String flavor) {
         String sanitizedFlavor = Encode.forJava(flavor);
@@ -75,7 +72,6 @@ public class CoffeeController {
         return result;
     }
 
-    @CrossOrigin(origins = "https://averagejoe-coffee-microservice.herokuapp.com/")
     @GetMapping("/body/{body}")
     List<Coffee> getByBody(@PathVariable String body) {
         String sanitizedBody = Encode.forJava(body);
@@ -83,7 +79,6 @@ public class CoffeeController {
         return result;
     }
 
-    @CrossOrigin(origins = "https://averagejoe-coffee-microservice.herokuapp.com/")
     @GetMapping("/country/{country}")
     List<Coffee> getByCountry(@PathVariable String country) {
         String sanitizedCountry = Encode.forJava(country);
@@ -91,7 +86,6 @@ public class CoffeeController {
         return result;
     }
 
-    @CrossOrigin(origins = "https://averagejoe-coffee-microservice.herokuapp.com/")
     @GetMapping("/roast/{type}")
     List<Coffee> getByRoastType(@PathVariable String type) {
         String sanitizedType = Encode.forJava(type);
@@ -99,8 +93,7 @@ public class CoffeeController {
         return result;
     }
 
-    @CrossOrigin(origins = "https://averagejoe-coffee-microservice.herokuapp.com/")
-    @PutMapping("/{id}/{quantity}")
+    @GetMapping("/{id}/{quantity}")
     public ResponseEntity<Coffee> updateCoffee(@PathVariable("id") String id,
             @PathVariable("quantity") Integer quantity) {
         String sanId = Encode.forJava(id);
