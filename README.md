@@ -1,3 +1,3 @@
-# Micro Services for AverageJoeBrewingCo
-Coffee Microservice only
+# Coffee Microservice for averagejoebrewingco
+
 
